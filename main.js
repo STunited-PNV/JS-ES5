@@ -1,25 +1,37 @@
 var tasks = [];
 var checkbelling = true;
 
+var isValidTask = function(text, time, excludeIndex) {
+    if (typeof excludeIndex === "undefined") {
+        excludeIndex = -1;
+    }
+
+    if (!text || !time) {
+        alert("Không được để rỗng 1 trong 2 ô input");
+        return false;
+    }
+
+    if (text.length > 20) {
+        alert("Name task không được lớn hơn 20 ký tự");
+        return false;
+    }
+
+    if (tasks.some(function(task, index) {
+        return index !== excludeIndex && task.time === time;
+    })) {
+        alert("Đã có một công việc vào giờ này.");
+        return false;
+    }
+
+    return true;
+};
+
 function addTask() {
     var taskText = document.getElementById("task").value;
     var taskTime = document.getElementById("time").value;
-
-    if (!taskText || !taskTime) {
-        alert("Không được để rỗng 1 trong 2 ô input");
-        return;
-    }
-    var lenthTask = taskText.length;
-    if (lenthTask > 20) {
-        alert("Name task không được lớn hơn 20 ký tự");
-        return;
-    }
-    var taskExists = tasks.some(function(task) {
-        return task.time === taskTime;
-    });
-    if (taskExists) {
-        alert("Đã có một công việc vào giờ này.");
-        return;
+    var isValid = isValidTask(taskText, taskTime);
+    if(!isValid){
+        return
     }
     var task = { text: taskText, time: taskTime, notify: true, notifyStatus: false };
     tasks.push(task);
@@ -60,7 +72,10 @@ function updateTask() {
     var taskIndex = document.getElementById("editOverlay").dataset.taskIndex;
     var newText = document.getElementById("editTask").value;
     var newTime = document.getElementById("editTime").value;
-
+    var isValid = isValidTask(newText, newTime);
+    if(!isValid){
+        return
+    }
     if (newText && newTime) {
         tasks[taskIndex].text = newText;
         tasks[taskIndex].time = newTime;

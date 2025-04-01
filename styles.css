@@ -133,7 +133,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1000; 
 }
 
 .edit-form-container {
@@ -166,4 +166,3 @@ body {
 .todo-list li button {
     margin-left: 10px;
 }
-
