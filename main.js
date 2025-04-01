@@ -1,5 +1,4 @@
 var tasks = [];
-var checkbelling = true;
 
 var isValidTask = function(text, time, excludeIndex) {
     if (typeof excludeIndex === "undefined") {
@@ -102,7 +101,7 @@ function checkReminders() {
     tasks.forEach(function(task) {
         console.log(task.time);
         var taskTime = new Date(task.time).toISOString().slice(0, 16);
-        if (!task.notifyStatus && checkbelling && task.notify && taskTime === nowISO) {
+        if (!task.notifyStatus && task.notify && taskTime === nowISO) {
             var alarm = document.getElementById("alarm");
             alarm.volume = 1.0;
             alarm.play().catch(function(e) {
@@ -125,7 +124,6 @@ function stopBell() {
         alarm.pause();
         alarm.currentTime = 0;
         task.notifyStatus = false;
-        checkbelling = true;
     }, 100);
 }
 
