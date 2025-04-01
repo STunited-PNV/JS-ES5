@@ -18,9 +18,9 @@ document.getElementById("myInput").addEventListener("keypress", (event) => {
   }
 });
 
-const editTask = (element) => {
-  let oldValue = element.firstChild.textContent.trim();
-  let input = document.createElement("input");
+function editTask(element) {
+  var oldValue = element.firstChild.textContent.trim();
+  var input = document.createElement("input");
 
   input.type = "text";
   input.value = oldValue;
@@ -38,20 +38,19 @@ const editTask = (element) => {
       saveTask(element, input, oldValue);
     }
   });
-};
+}
 
-const saveTask = (element, input, oldValue) => {
-  let newValue = input.value.trim();
+function saveTask(element, input, oldValue) {
+  var newValue = input.value.trim();
   if (!newValue) {
     alert("You must write something!");
-    element.innerHTML = `${oldValue} <span class= 'close'>x</span>`;
-
-    return;
+    element.innerHTML = oldValue + '<span class="close">x</span>';
   } else {
-    element.innerHTML = `${newValue} <span class= 'close'>x</span>`;
+    element.innerHTML = newValue + '<span class="close">x</span>';
   }
-};
-const newElement = () => {
+}
+
+function newElement() {
   var input = document.getElementById("myInput");
   var inputValue = input.value.trim();
 
@@ -60,8 +59,8 @@ const newElement = () => {
     return;
   }
   var li = document.createElement("li");
-  li.innerHTML = `${inputValue} <span class = "close">x</span>`;
+  li.innerHTML = inputValue + '<span class = "close">x</span>';
 
   document.getElementById("myUL").appendChild(li);
   input.value = "";
-};
+}
